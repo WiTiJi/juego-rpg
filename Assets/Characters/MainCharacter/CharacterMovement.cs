@@ -10,8 +10,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField]float speedX = 5f;
-    [SerializeField]float speedZ = 10f;
+    private const float diagonalUnit = 1.414213562373095f;
+    [SerializeField]float speed = 5f;
     
     PlayerInput playerInput;
     enum LastDirectionId { up, down, left, right };
@@ -104,8 +104,8 @@ public class CharacterMovement : MonoBehaviour
         if (playerInput.oneDirection)
         {
             Vector3 direction = playerInput.direction;
-            float speed = direction.x != 0 ? speedX : speedZ;
-            controller.Move(Time.deltaTime * speed * direction);            
+            float thisSpeed = direction.x != 0 ? speed : speed * diagonalUnit;
+            controller.Move(Time.deltaTime * thisSpeed * direction);
         }
     }
 
